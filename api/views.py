@@ -15,11 +15,14 @@ from .utils import GetCSV
 class FileAPIView(APIView):
     def get(self,request):
         GetCSV()
-        os.remove(os.path.join(settings.BASE_DIR, 'data.csv'))
+        try:
+            os.remove(os.path.join(settings.BASE_DIR, 'data.csv'))
+        except:
+            pass  
         substring = "CF-AN"
         
-        download_dir = r"C:\Users\dell\Downloads\\"
-
+        # download_dir = r"C:\Users\dell\Downloads\\"
+        download_dir = '/Users/kira/Downloads/'
         files = os.listdir(download_dir)
 
         latest_file = max([file for file in files if file.startswith('CF-AN-equities')], key=lambda f: os.path.getmtime(os.path.join(download_dir, f)))
